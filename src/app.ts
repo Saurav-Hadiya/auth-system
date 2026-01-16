@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { errorHandler } from './middlewares/errorHandler';
+import router from './routes';
 
 const app = express();
 
@@ -14,7 +14,6 @@ app.use('/health', (req: Request, res: Response) => {
   });
 }); 
 
-// Global error handler
-app.use(errorHandler)
+app.use('/api', router)
 
 export default app;
