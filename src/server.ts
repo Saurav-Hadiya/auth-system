@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import app from './app';
 import config from './config/config';
+import { closeDB } from './database/db';
 
 dotenv.config();
 
@@ -8,19 +9,19 @@ const server = app.listen(config.port, () => {
   console.log(`Server running on port ${config.port}`);
 });
 
-//Gracefully server closed
-process.on('SIGTERM', () => {
-  console.log('SIGTERM signal is received...');
+const shutDown = () => {
+  console.log('Shuutting down the server...');
   server.close(() => {
-    console.log('Database connection closed.');
+    closeDB(() =>
+      console.log(
+        'MongoDB connection closed due to application server closed...',
+      ),
+    );
     process.exit(0);
   });
-});
+};
 
-process.on('SIGINT', () => {
-  console.log('SIGINT signal is received...');
-  server.close(() => {
-    console.log('Database connection closed...');
-    process.exit(0);
-  });
-});
+//Gracefully server closed
+process.on('SIGTERM', shutDown);
+
+process.on('SIGINT', shutDown);
