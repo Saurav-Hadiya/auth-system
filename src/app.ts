@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// server
 const app = express();
 app.use(express.json());
 
