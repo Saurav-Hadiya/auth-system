@@ -13,8 +13,8 @@ const server = app.listen(config.port, () => {
 // callback function to shutdown the server
 const shutDown = () => {
   console.log('Shuutting down the server...');
-  server.close(() => {
-    closeDB(() =>
+  server.close(async () => {
+    await closeDB(() =>
       console.log(
         'MongoDB connection closed due to application server closed...',
       ),

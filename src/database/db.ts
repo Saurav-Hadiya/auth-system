@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import config from '../config/config';
 
 const mongoURL = `mongodb+srv://${encodeURIComponent(config.db_user)}:${encodeURIComponent(config.db_password)}@${config.db_cluster}/${config.db_name}?appName=${config.db_appName}`;
-console.log(mongoURL);
 
 export const connectDB = async () => {
   try {
